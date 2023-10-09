@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <limits>
@@ -132,8 +133,8 @@ void menu(){
     cout << "--------------------------------------------------------------" <<endl;
     cout<<"Ingrese categoria del usuario:\n1 - Gerente \n2 - Cadete\n3 - Salir\n\nRespuesta:"<<" ";
     cin>>respuesta;
-    while (respuesta!=3)
-    {   if (cin.fail()) {
+    while (respuesta!=3) {
+        if (cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Ignorar la entrada no válida
             cout << "\nPor favor, ingrese un numero" << endl;
