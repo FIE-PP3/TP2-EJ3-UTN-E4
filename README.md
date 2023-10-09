@@ -21,3 +21,4 @@ presentismo y por resultados; y preguntarle en cada caso su sueldo.
 
 Nota: acá aparecen varios objetos, piensen bien a qué objeto le piden cada cosa que hay 
 que saber para poder llegar al sueldo de pepe.
+2023
