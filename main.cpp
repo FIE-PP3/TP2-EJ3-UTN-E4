@@ -1,3 +1,8 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "modernize-use-auto"
+#pragma ide diagnostic ignored "readability-make-member-function-const"
+#pragma ide diagnostic ignored "performance-unnecessary-value-param"
+#pragma ide diagnostic ignored "readability-convert-member-functions-to-static"
 
 #include <iostream>
 #include <string>
@@ -92,20 +97,9 @@ public:
 };
 
 
-int ingresarBonos(){
-    int diasA, tipoBonoR;
-    while (true) {
-        cout << "\nIngrese cantidad de dias ausentes: ";
-        cin >> diasA;
+int ingresarBonoResultados () {
+    int tipoBonoR;
 
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "\nPor favor, ingrese un numero valido." << endl;
-        } else {
-            break;
-        }
-    }
     while (true) {
         cout << "\nIngrese tipo de bono por resultados:\n";
         cout << "1 - 10 porciento sobre el neto\n2 - $80 fijos\n3 - nada\n\nRespuesta: ";
@@ -121,10 +115,28 @@ int ingresarBonos(){
             break;
         }
     }
-    return diasA, tipoBonoR;
+
+    return tipoBonoR;
 }
 
-void menu(){
+int ingresarDiasAusente(){
+    int diasA;
+    while (true) {
+        cout << "\nIngrese cantidad de dias ausentes: ";
+        cin >> diasA;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "\nPor favor, ingrese un numero valido." << endl;
+        } else {
+            break;
+        }
+    }
+    return diasA;
+}
+
+void menu() {
     int respuesta, diasA, tipoBonoR;
     float sueldo;
     string nombre;
@@ -147,14 +159,16 @@ void menu(){
         {
             Categoria *gerente = new Categoria("Gerente", 1000);
             Persona persona(nombre, gerente);
-            diasA, tipoBonoR = ingresarBonos();
+            diasA = ingresarDiasAusente();
+            tipoBonoR = ingresarBonoResultados();
             sueldo = persona.calcularSueldo(diasA, tipoBonoR);
-            cout<<"\n"<<nombre<< " cobra  $" << sueldo << endl;
+            cout<<"\n"<<nombre<< " cobra $" << sueldo << endl;
 
         }else if (respuesta==2){
             Categoria *cadete = new Categoria("Cadete", 1500);
             Persona persona(nombre, cadete);
-            diasA, tipoBonoR = ingresarBonos();
+            diasA = ingresarDiasAusente();
+            tipoBonoR = ingresarBonoResultados();
             sueldo = persona.calcularSueldo(diasA, tipoBonoR);
             cout<<"\n"<<nombre<< " cobra  $" << sueldo << endl;
         }else if(respuesta==3){
@@ -168,7 +182,7 @@ void menu(){
         cout<<"Ingrese categoria del usuario:\n1 - Gerente \n2 - Cadete\n3 - Salir\n\nRespuesta:"<<" ";
         cin>>respuesta;
     }
-};
+}
 
 int main() {
 
@@ -177,3 +191,5 @@ int main() {
     return 0;
 }
 
+
+#pragma clang diagnostic pop
