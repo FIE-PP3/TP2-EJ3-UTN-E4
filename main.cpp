@@ -157,6 +157,11 @@ public:
         return this->categoriaTrabajador;
     }
 
+
+    void impresion_sueldo(string name, string cargo, int neto, int bp, int br, int bruto){         //TOMAR PARAMETROS COMO NOMBRE, CARGO, BONO 1, BONO 2, NETO, SUELDO TOTAL.
+        hash<string> hashFun;
+        size_t id = hashFun(name)%1000;
+
     void impresion_sueldo(string name, string cargo, int neto, int bp, int br, int bruto){         //CLASE QUE TOMA LOS PARAMETROS DEL USUARIO CREADO Y GENERA LA IMPRESION DEL SUELDO.
         //FUNCION HASH QUE UTILIZA EL NOMBRE DEL USER PARA GENERAR UN ID ALEATORIO Y ASIGNARSELO AL RECIBO
         hash<string> hashFun;
@@ -196,13 +201,22 @@ public:
 
 
 
+
+ class Interfaz {
+
 class Interfaz {
+
 public:
     static void mostrarPantallaDeCarga() {
         system("cls");
         cout<<setw(40)<<"************************************************************************************************************************"<<n;
         gotoxy(45,1);cout<<rojo<<negrita<<subrayado<<"SISTEMA LIQUIDACION SUELDOS:"<<n<<endl;
         cout<<setw(40)<<"************************************************************************************************************************"<<n<<endl;
+        gotoxy(50,3);cout <<amarillo<< "Cargando" <<n<< endl;
+        for (int i = 58; i < 64; i++) {
+            gotoxy(i,3);cout <<amarillo<< "." << " "<<n;
+            this_thread::sleep_for(std::chrono::seconds(1)); // Pausa durante 1 segundo
+        }
 
         gotoxy(40,5);
 
@@ -221,6 +235,10 @@ public:
 
     static void Menu_Principal(){
 
+
+        while(true){
+            system("cls");
+            Interfaz::mostrarPantallaDeCarga();
         system("cls");
         Interfaz::mostrarPantallaDeCarga();
 
