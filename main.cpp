@@ -2,9 +2,10 @@
 #include <windows.h>
 #include <chrono>
 #include <thread>
-#include "ctime"
+#include <ctime>
 #include <string.h>
 #include <iomanip>
+#include <regex>
 
 using namespace std;
 
@@ -49,7 +50,12 @@ public:
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout <<rojo<< "\nPor favor, ingrese un numero valido." <<n<< endl;
-            } else {
+            }
+            else if(diasA >= 30) {
+                cout<<rojo<<"ERROR. Numero de dias no posible, vuelva a intentar\n"<<n;
+            }
+
+            else {
                 break;
             }
         }
@@ -90,7 +96,7 @@ public:
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout <<rojo<<"\nPor favor, ingrese un numero valido." <<n<< endl;
             } else if (tipoBonoR < 1 || tipoBonoR > 3) {
-                cout <<rojo<< "Opción no válida. Por favor, elija 1, 2 o 3." <<n<< endl;
+                cout <<rojo<< "Opcion no valida. Vuelva a intentar." <<n<< endl;
             } else {
                 cout<<azul<<"\n\nCredenciales cargadas correctamente."<<n<<endl;
                 cout<<azul<<"Para visualizar recibo.   "<<n;
@@ -210,7 +216,7 @@ public:
     static void mostrarPantallaDeCarga() {
         system("cls");
         cout<<setw(40)<<"************************************************************************************************************************"<<n;
-        gotoxy(45,1);cout<<rojo<<negrita<<subrayado<<"SISTEMA LIQUIDACION SUELDOS:"<<n<<endl;
+        gotoxy(45,1);cout << rojo <<negrita<<subrayado<<"SISTEMA LIQUIDACION SUELDOS:"<<n<<endl;
         cout<<setw(40)<<"************************************************************************************************************************"<<n<<endl;
         gotoxy(50,3);cout <<amarillo<< "Cargando" <<n<< endl;
         for (int i = 58; i < 64; i++) {
@@ -218,7 +224,7 @@ public:
             this_thread::sleep_for(std::chrono::seconds(1)); // Pausa durante 1 segundo
         }
 
-        gotoxy(40,5);
+        gotoxy(39,5);
 
         system("pause");
 
@@ -243,8 +249,9 @@ public:
         Interfaz::mostrarPantallaDeCarga();
 
         while(true){
-            system("cls");
+            regex  patron("[A-Za-z]+");
             int respuesta;
+
             cout <<azul<< "\n------------------------------------------------------------------------------------------------------------------------"<<n<<endl;
             gotoxy(45,2);cout<<verde<<negrita<<subrayado<<"CATEGORIAS DEL SISTEMA"<<n<<endl;
             cout <<azul<< "------------------------------------------------------------------------------------------------------------------------"<<n<<endl;
@@ -266,11 +273,18 @@ public:
                 cout <<azul<< "\n------------------------------------------------------------------------------------------------------------------------"<<n<<endl;
                 gotoxy(45,2);cout<<verde<<negrita<<subrayado<<"GESTOR DE CREDENCIALES DE USUARIO"<<n<<endl;
                 cout <<azul<< "------------------------------------------------------------------------------------------------------------------------"<<n<<endl;
+
                 int diasA, tipoBonoR;
                 float sueldo;
+
+
                 string nombre;
                 cout<<amarillo<<"\n-Ingrese nombre del empleado: "<<n;
                 cin>>nombre;
+                while(!regex_match(nombre,patron)){
+                    cout<<rojo<<"\n-ERROR.  Ingrese nuevamente nombre del empleado: "<<n;
+                    cin>>nombre;
+                }
 
                 Categoria *gerente = new Categoria("Gerente", 1500);
                 Persona persona(nombre, gerente);
@@ -285,11 +299,18 @@ public:
                 cout <<azul<< "\n------------------------------------------------------------------------------------------------------------------------"<<n<<endl;
                 gotoxy(45,2);cout<<verde<<negrita<<subrayado<<"GESTOR DE CREDENCIALES DE USUARIO"<<n<<endl;
                 cout <<azul<< "------------------------------------------------------------------------------------------------------------------------"<<n<<endl;
+
                 int diasA, tipoBonoR;
                 float sueldo;
                 string nombre;
+
                 cout<<amarillo<<"\n-Ingrese nombre del empleado: "<<n;
                 cin>>nombre;
+
+                while(!regex_match(nombre,patron)){
+                    cout<<rojo<<"\n-ERROR.  Ingrese nuevamente nombre del empleado: "<<n;
+                    cin>>nombre;
+                }
 
                 Categoria *cadete = new Categoria("Cadete", 1000);
                 Persona persona(nombre, cadete);
@@ -302,7 +323,8 @@ public:
             }
 
             else{
-                cout<<"Numero no valido\n";
+                cout<<rojo<<"ERROR. Numero no valido\n"<<n;
+                system("Pause");
             }
 
             system("cls");
